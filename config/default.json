@@ -1,0 +1,6 @@
+{
+    "mongoURI": "mongodb+srv://react-review:yUAKeOtnavvEGBJW@cluster0.kgnzq.mongodb.net/react-review?retryWrites=true&w=majority",
+    "secret": "SuhSuhSuh",
+    "ghClientId": "eb20bf7e24be896c3288",
+    "ghClientSecret": "061618907a671df2b7d437f3e70aa229b3e4d7c1"
+}
