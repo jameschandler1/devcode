@@ -7,6 +7,7 @@ import {
     AUTH_ERROR,
     LOGIN_FAIL,
     LOGIN_SUCCESS,
+    LOGOUT,
 } from './types';
 import setAuthToken from "../utils/setAuthToken.js";
 
@@ -46,6 +47,7 @@ export const register = ({ name, email, password }) => async dispatch => {
             type: REGISTER_SUCCESS,
             payload: res.data
         });
+        dispatch(loadUser());
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
@@ -74,6 +76,7 @@ export const login = ( email, password ) => async dispatch => {
             type: LOGIN_SUCCESS,
             payload: res.data
         });
+        dispatch(loadUser());
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
@@ -83,4 +86,11 @@ export const login = ( email, password ) => async dispatch => {
             type: LOGIN_FAIL,
         });
     }
+}
+
+//logout user
+export const logout = () => dispatch => {
+    dispatch({
+        type: LOGOUT
+    });
 }
