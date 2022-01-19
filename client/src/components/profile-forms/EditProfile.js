@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useMatch, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -23,7 +23,7 @@ const initialState = {
   instagram: "",
 };
 
-const ProfileForm = ({
+const EditProfile = ({
   profile: { profile, loading },
   createProfile,
   getCurrentProfile,
@@ -37,26 +37,21 @@ const ProfileForm = ({
   const navigate = useNavigate();
 
   useEffect(() => {
-    // if there is no profile, attempt to fetch one
-    if (!profile) getCurrentProfile();
-
-    // if we finished loading and we do have a profile
-    // then build our profileData
-    if (!loading && profile) {
-      const profileData = { ...initialState };
-      for (const key in profile) {
-        if (key in profileData) profileData[key] = profile[key];
-      }
-      for (const key in profile.social) {
-        if (key in profileData) profileData[key] = profile.social[key];
-      }
-      // the skills may be an array from our API response
-      if (Array.isArray(profileData.skills))
-        profileData.skills = profileData.skills.join(", ");
-      // set local state with the profileData
-      setFormData(profileData);
-    }
-  }, [loading, getCurrentProfile, profile]);
+      getCurrentProfile();
+      setFormData({
+          company: loading || !profile.company ? "" : profile.company,
+          website: loading || !profile.website ? "" : profile.website,
+          location: loading || !profile.location ? "" : profile.location,
+          status: loading || !profile.status ? "" : profile.status,
+          interests: loading || !profile.interests ? "" : profile.interests,
+          bio: loading || !profile.bio ? "" : profile.bio,
+          twitter: loading || !profile.social ? "" : profile.social.twitter,
+          facebook: loading || !profile.social ? "" : profile.social.facebook,
+          linkedin: loading || !profile.social ? "" : profile.social.linkedin,
+          youtube: loading || !profile.social ? "" : profile.social.youtube,
+          instagram: loading || !profile.social ? "" : profile.social.instagram
+  })
+  }, [loading]);
 
   const {
     company,
@@ -240,18 +235,18 @@ const ProfileForm = ({
       </form>
     </section>
   );
-};
+}
 
-ProfileForm.propTypes = {
+EditProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  profile: state.profile
+const mapStateToProps = state => ({
+  profile: state.profile,
 });
 
 export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
-  ProfileForm
+  EditProfile
 );
