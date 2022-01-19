@@ -37,20 +37,20 @@ const EditProfile = ({
   const navigate = useNavigate();
 
   useEffect(() => {
-      getCurrentProfile();
-      setFormData({
-          company: loading || !profile.company ? "" : profile.company,
-          website: loading || !profile.website ? "" : profile.website,
-          location: loading || !profile.location ? "" : profile.location,
-          status: loading || !profile.status ? "" : profile.status,
-          interests: loading || !profile.interests ? "" : profile.interests,
-          bio: loading || !profile.bio ? "" : profile.bio,
-          twitter: loading || !profile.social ? "" : profile.social.twitter,
-          facebook: loading || !profile.social ? "" : profile.social.facebook,
-          linkedin: loading || !profile.social ? "" : profile.social.linkedin,
-          youtube: loading || !profile.social ? "" : profile.social.youtube,
-          instagram: loading || !profile.social ? "" : profile.social.instagram
-  })
+    getCurrentProfile();
+    setFormData({
+      company: loading || !profile.company ? "" : profile.company,
+      website: loading || !profile.website ? "" : profile.website,
+      location: loading || !profile.location ? "" : profile.location,
+      status: loading || !profile.status ? "" : profile.status,
+      interests: loading || !profile.interests ? "" : profile.interests.join(','),
+      bio: loading || !profile.bio ? "" : profile.bio,
+      twitter: loading || !profile.social ? "" : profile.social.twitter,
+      facebook: loading || !profile.social ? "" : profile.social.facebook,
+      linkedin: loading || !profile.social ? "" : profile.social.linkedin,
+      youtube: loading || !profile.social ? "" : profile.social.youtube,
+      instagram: loading || !profile.social ? "" : profile.social.instagram,
+    });
   }, [loading]);
 
   const {
@@ -92,12 +92,12 @@ const EditProfile = ({
           <input
             type="text"
             placeholder="Status"
-            name="status"
+            name="company"
             value={status}
             onChange={(e) => onChange(e)}
           />
           <small className="form-text">
-            Could be your own company or one you work for
+            what postion do you hold? (eg. Developer, CEO, etc.)
           </small>
         </div>
         <div className="form-group">
@@ -235,7 +235,7 @@ const EditProfile = ({
       </form>
     </section>
   );
-}
+};
 
 EditProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
@@ -243,7 +243,7 @@ EditProfile.propTypes = {
   profile: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 

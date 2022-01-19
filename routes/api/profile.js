@@ -4,7 +4,7 @@ const config = require("config");
 const router = express.Router();
 const auth = require("../../middleware/auth");
 const Profile = require("../../models/Profile");
-const Post = require("../../models/Post")
+const Post = require("../../models/Post");
 const User = require("../../models/User");
 const { check, validationResult } = require("express-validator");
 
@@ -42,10 +42,12 @@ router.post("/", auth, async (req, res) => {
   const user = await User.findById(req.user.id).select("-password");
 
   const {
+    status,
+    company,
     website,
     location,
     bio,
-    intrests,
+    interests,
     youtube,
     facebook,
     twitter,
@@ -56,16 +58,13 @@ router.post("/", auth, async (req, res) => {
   //build profile object
 
   const profileFields = {};
+  profileFields.status = status;
+  profileFields.company = company;
   profileFields.user = req.user.id;
-  
-  if (website) profileFields.website = website;
-  if (location) profileFields.location = location;
-  if (bio) profileFields.bio = bio;
-  if (intrests) {
-    profileFields.intrests = intrests
-      .split(",")
-      .map((intrest) => intrest.trim());
-  }
+  profileFields.website = website;
+  profileFields.location = location;
+  profileFields.bio = bio;
+  profileFields.interests = interests.split(",").map((intrest) => intrest.trim());
   //build social object
   profileFields.social = {};
   if (youtube) profileFields.social.youtube = youtube;
