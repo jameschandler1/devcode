@@ -10,16 +10,15 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
     getProfiles();
   }, [getProfiles]);
 
-  return (
-    <section className="container">
-      {loading ? (
+  return <>
+      {loading ? 
         <Spinner />
-      ) : (
-        <Fragment>
-          <h1 className="large text-primary">Developers</h1>
+       : 
+        <>
+          <h1 className="large text-primary">Connects</h1>
           <p className="lead">
             <i className="fab fa-connectdevelop" /> Browse and connect with
-            developers
+            people
           </p>
           <div className="profiles">
             {profiles.length > 0 ? (
@@ -30,10 +29,8 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
               <h4>No profiles found...</h4>
             )}
           </div>
-        </Fragment>
-      )}
-    </section>
-  );
+        </>}
+    </>
 };
 
 Profiles.propTypes = {
