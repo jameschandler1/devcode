@@ -1,14 +1,20 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import Spinner from '../layout/Spinner';
-import { getCurrentProfile } from '../../actions/profile';
-const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, loading}  }) => {
-    
-    useEffect(() => {
-       getCurrentProfile();
-    }, [getCurrentProfile]);
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import Spinner from "../layout/Spinner";
+import { getCurrentProfile, deleteAccount } from "../../actions/profile";
+import { DashboardActions} from "./DashboardActions";
+
+const Dashboard = ({
+  getCurrentProfile,
+  deleteAccount,
+  auth: { user },
+  profile: { profile, loading },
+}) => {
+  useEffect(() => {
+    getCurrentProfile();
+  }, [getCurrentProfile]);
 
   return loading && profile === null ? (
     <Spinner />
@@ -19,12 +25,22 @@ const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, load
         <i className="fas fa-user"></i> Welcome {user && user.name}
       </p>
       {profile !== null ? (
-        <> You have a profile </>
+        <>
+          {" "}
+          <DashboardActions />{" "}
+        <div className="my-2">
+            <button className="btn btn-danger" onClick={e => deleteAccount()}>
+                <i className="fas fa-user-minus"></i> Delete My Account
+            </button>
+        </div>
+        </>
       ) : (
         <>
           {" "}
           <p> You haven't created a profile yet, please add some info.</p>{" "}
-          <Link to="/create-profile" className="btn btn-primary my-1">Create Profile</Link>
+          <Link to="/create-profile" className="btn btn-primary my-1">
+            Create Profile
+          </Link>
         </>
       )}
     </>
@@ -32,14 +48,15 @@ const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, load
 };
 
 Dashboard.propTypes = {
-    getCurrentProfile: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
-    profile: PropTypes.object.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
+  deleteAccount: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-    auth: state.auth,
-    profile: state.profile,
+  auth: state.auth,
+  profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(Dashboard);
