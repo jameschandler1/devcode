@@ -9,6 +9,9 @@ import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import CreateProfile from "./components/profile-forms/CreateProfile";
 import EditProfile from "./components/profile-forms/EditProfile";
+import Profiles from "./components/profiles/Profiles";
+
+
 //redux
 import { Provider } from "react-redux";
 import store from "./store";
@@ -39,8 +42,9 @@ const App = () => {
             <Routes>
               <Route exact path="/login" element={<Login />} />
               <Route exact path="/register" element={<Register />} />
+              <Route exact path="/profiles" element={<Profiles />} />
               <Route
-                path="dashboard"
+                path="/dashboard"
                 element={<PrivateRoute component={Dashboard} />}
               />
               <Route
