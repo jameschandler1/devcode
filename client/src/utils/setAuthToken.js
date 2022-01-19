@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { setAlert } from './alert';
 
 const setAuthToken = (token) => {
     if (token) {
