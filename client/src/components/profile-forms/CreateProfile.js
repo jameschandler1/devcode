@@ -51,12 +51,12 @@ const ProfileForm = ({
         if (key in profileData) profileData[key] = profile.social[key];
       }
       // the skills may be an array from our API response
-      if (Array.isArray(profileData.skills))
-        profileData.skills = profileData.skills.join(", ");
+      if (Array.isArray(profileData.interests))
+        profileData.interests = profileData.interests.join(", ");
       // set local state with the profileData
       setFormData(profileData);
     }
-  }, [loading, getCurrentProfile, profile]);
+  }, [loading]);
 
   const {
     company,
@@ -83,13 +83,13 @@ const ProfileForm = ({
   return (
     <section className="container">
       <h1 className="large text-primary">
-        {creatingProfile ? "Create Your Profile" : "Edit Your Profile"}
+        {creatingProfile ? 'Create Your Profile' : 'Edit Your Profile'}
       </h1>
       <p className="lead">
         <i className="fas fa-user" />
         {creatingProfile
           ? ` Let's get some information to make your`
-          : " Add some changes to your profile"}
+          : ' Add some changes to your profile'}
       </p>
       <small>* = required field</small>
       <form className="form" onSubmit={(e) => onSubmit(e)}>
@@ -102,7 +102,7 @@ const ProfileForm = ({
             onChange={(e) => onChange(e)}
           />
           <small className="form-text">
-            Could be your own company or one you work for
+            what postion do you hold? (eg. Developer, CEO, etc.)
           </small>
         </div>
         <div className="form-group">
@@ -234,7 +234,7 @@ const ProfileForm = ({
         )}
 
         <input type="submit" className="btn btn-primary my-1" />
-        <Link className="btn btn-light my-1" to="/dashboard">
+         <Link className="btn btn-light my-1" to="/dashboard">
           Go Back
         </Link>
       </form>
