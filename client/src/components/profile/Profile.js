@@ -1,22 +1,38 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { useParams, Link} from "react-router-dom";
+import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
+import { Link, useParams } from "react-router-dom";
+import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
+
 import { getProfileById } from "../../actions/profile";
 
-const Profile = ({ getProfileById, profile: { profile, loading }, auth }) => {
+const Profile = ({ getProfileById, profile: { profile }, auth, loading, }) => {
   const { id } = useParams();
-
   useEffect(() => {
     getProfileById(id);
   }, [getProfileById, id]);
 
-  return <>
-  {loading ? <Spinner /> : <>
-    <Link to='/profiles' className='btn btn-light'>Back to Profiles</Link>
-  </>}
-  </>;
+  return (
+    <section className="container">
+      {profile === null ? (
+        <Spinner />
+      ) : (
+        <>
+          <Link to="/profiles" className="btn btn-light">
+            Back To Profiles
+          </Link>
+          {auth.isAuthenticated &&
+            auth.loading === false &&
+            auth.user._id ===
+              profile.user._id && (
+                <Link to={`/profile/${auth.user._id}`} className="btn btn-dark">
+                  Edit Profile
+                </Link>
+              )}
+        </>
+      )}
+    </section>
+  );
 };
 
 Profile.propTypes = {

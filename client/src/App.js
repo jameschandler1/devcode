@@ -31,37 +31,37 @@ const App = () => {
   }, []);
   
   return (
-    <Provider store={store}>
-      <Router>
-        <Fragment>
-          <Navbar />
-          <Routes>
-            <Route exact path="/" element={<Landing />} />
-          </Routes>
-          <section className="container">
-            <Alert />
+      <Provider store={store}>
+        <Router>
+          <Fragment>
+            <Navbar />
             <Routes>
-              <Route exact path="/login" element={<Login />} />
-              <Route exact path="/register" element={<Register />} />
-              <Route exact path="/profiles" element={<Profiles />} />
-              <Route exact path="/profile/:id" element={<Profile />} />
-              <Route
-                path="/dashboard"
-                element={<PrivateRoute component={Dashboard} />}
-              />
-              <Route
-                path="/create-profile"
-                element={<PrivateRoute component={CreateProfile} />}
-              />
-              <Route
-                path="/edit-profile"
-                element={<PrivateRoute component={EditProfile} />}
-              />
+              <Route exact path="/" element={<Landing />} />
             </Routes>
-          </section>
-        </Fragment>
-      </Router>
-    </Provider>
+            <section className="container">
+              <Alert />
+              <Routes>
+                <Route exact path="/login" element={<Login />} />
+                <Route exact path="/register" element={<Register />} />
+                <Route exact path="/profiles" element={<Profiles />} />
+                <Route exact path={'/profile/user/:id'} element={<Profile />} />
+                <Route
+                  path="/dashboard"
+                  element={<PrivateRoute component={Dashboard} />}
+                />
+                <Route
+                  path="/create-profile"
+                  element={<PrivateRoute component={CreateProfile} />}
+                />
+                <Route
+                  path="/edit-profile"
+                  element={<PrivateRoute component={EditProfile} />}
+                />
+              </Routes>
+            </section>
+          </Fragment>
+        </Router>
+      </Provider>
   );
 };
 
