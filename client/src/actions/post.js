@@ -4,59 +4,92 @@ import {
     GET_POSTS,
     POST_ERROR,
     UPDATE_LIKES,
+    DELETE_POST,
+    ADD_POST,
 } from './types';
 
 //get posts
 export const getPosts = () => async dispatch => {
     try {
-        const response = await axios.get('/api/posts');
+        const res = await axios.get('/api/posts');
         dispatch({
             type: GET_POSTS,
-            payload: response.data
+            payload: res.data
         });
     } catch (err) {
         dispatch({
             type: POST_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
+            payload: { msg: err.res.statusText, status: err.res.status }
         });
     }
 }
 
-//add like 
-export const addLike = postId => async dispatch => {
-    try {
-        const response = await axios.put(`/api/posts/like/${postId}`);
-        dispatch({
-            type: UPDATE_LIKES,
-            payload: {
-                postId,
-                likes: response.data
-            }
-        });
-    } catch (err) {
-        dispatch({
-            type: POST_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
-        });
-    }
-}
+/// Add like
+export const addLike = (id) => async (dispatch) => {
+  try {
+    const res = await axios.put(`/api/posts/like/${id}`);
 
-//remove like 
-export const removeLike = postId => async dispatch => {
-    try {
-        const response = await axios.put(`/api/posts/unlike/${postId}`);
-        dispatch({
-            type: UPDATE_LIKES,
-            payload: {
-                postId,
-                likes: response.data
-            }
-        });
-    } catch (err) {
-        dispatch({
-            type: POST_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
-        });
-    }
-}
+    dispatch({
+      type: UPDATE_LIKES,
+      payload: { id, likes: res.data }
+    });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
 
+// Remove like
+export const removeLike = (id) => async (dispatch) => {
+  try {
+    const res = await axios.put(`/api/posts/unlike/${id}`);
+
+    dispatch({
+      type: UPDATE_LIKES,
+      payload: { id, likes: res.data }
+    });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// delete post
+export const deletePost = (id) => async (dispatch) => {
+  try {
+     await axios.put(`/api/posts/${id}`);
+
+    dispatch({
+      type: DELETE_POST,
+      payload: id, 
+    });
+    setAlert('Post Removed', 'success');
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// add post
+export const addPost = formData => async (dispatch) => {
+  try {
+     const res = await  axios.post(`/api/posts/`, formData);
+
+    dispatch({
+      type: ADD_POST,
+      payload: res.data, 
+    });
+    setAlert('Post Removed', 'success');
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
