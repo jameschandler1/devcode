@@ -12,7 +12,7 @@ const CommentItem = ({
     deleteComment,
     showActions,
 }) => (
-      <div class="post bg-white p-1 my-1">
+      <div class="post bg-dark p-1 my-1">
         <div>
           <Link to={`/user/${user}`}>
             <img
