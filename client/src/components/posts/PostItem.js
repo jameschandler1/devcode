@@ -10,6 +10,7 @@ const PostItem = ({
   addLike,
   removeLike,
   deletePost,
+  showActions,
   post: { _id, name, text, avatar, user, likes, comments, date },
 }) => (
   <div className="post bg-white p-1 my-1">
@@ -24,29 +25,42 @@ const PostItem = ({
       <p className="post-date">
         Posted on <Moment format="YYYY-MM-DD HH:MM:SS">{date}</Moment>
       </p>
-      <button
-        onClick={(e) => (addLike(_id) ? removeLike(_id) : addLike(_id))}
-        type="button"
-        className="btn btn-light"
-      >
-        <i className="fas fa-thumbs-up"></i>
-        {` `}
-        <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
-      </button>
-      <Link to={`/posts/${_id}`} className="btn btn-primary">
-        Discussion {" "}
-        {comments.length > 0 && (
-          <span className="comment-count">{comments.length}</span>
-        )}
-      </Link>
-      {!auth.loading && user === auth.user._id && (
-        <button onClick={e => deletePost(_id)} type="button" className="btn btn-danger">
-          <i className="fas fa-times"></i>
-        </button>
+
+      {showActions && (
+        <>
+          <button
+            onClick={(e) => (addLike(_id) ? removeLike(_id) : addLike(_id))}
+            type="button"
+            className="btn btn-light"
+          >
+            <i className="fas fa-thumbs-up"></i>
+            {` `}
+            <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
+          </button>
+          <Link to={`/posts/${_id}`} className="btn btn-primary">
+            Discussion{" "}
+            {comments.length > 0 && (
+              <span className="comment-count">{comments.length}</span>
+            )}
+          </Link>
+          {!auth.loading && user === auth.user._id && (
+            <button
+              onClick={(e) => deletePost(_id)}
+              type="button"
+              className="btn btn-danger"
+            >
+              <i className="fas fa-times"></i>
+            </button>
+          )}
+        </>
       )}
     </div>
   </div>
 );
+
+PostItem.defaultProps = {
+    showActions: true,
+}
 
 PostItem.propTypes = {
   post: PropTypes.object.isRequired,
