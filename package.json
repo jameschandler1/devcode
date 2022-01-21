@@ -4,7 +4,7 @@
   "description": "mern app",
   "main": "server.js",
   "engines": {
-    "node": "17.4.0"
+    "node": ">=8.0.0"
   },
   "scripts": {
     "start": "node server.js",
@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "concurrently": "^7.0.0",
+    "mini-css-extract-plugin": "2.4.5",
     "nodemon": "^2.0.15"
   }
 }
