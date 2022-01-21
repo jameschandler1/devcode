@@ -44,5 +44,11 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000/"
+  "proxy": "http://localhost:5000/",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "devDependencies": {
+    "mini-css-extract-plugin": "~2.4.7"
+  }
 }
