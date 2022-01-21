@@ -7,6 +7,9 @@
     "node": ">=15.0.0",
     "npm": ">=6.0.0"
   },
+  "resolutions": {
+    "mini-css-extract-plugin": "2.4.5"
+  },
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server",
