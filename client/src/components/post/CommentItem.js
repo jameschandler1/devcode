@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getPost } from '../../actions/post';
 import Moment from 'react-moment';
+import { deleteComment } from '../../actions/post';
 
 const CommentItem = ({
     postId,
@@ -30,6 +31,15 @@ const CommentItem = ({
           <p class="post-date">Posted on{` `} 
           <Moment format="YYYY-MM-DD HH:MM:SS">{date}</Moment>
           </p>
+          {!auth.loading && user === auth.user._id && (
+            <button
+                onClick={(e) => deleteComment(postId, _id)}
+                type="button"
+                class="btn btn-danger"
+            >
+                <i class="fas fa-times"></i>
+            </button>
+    )}
         </div>
       </div>
 )
@@ -40,11 +50,13 @@ const CommentItem = ({
 CommentItem.propTypes = {
     postId: PropTypes.string.isRequired,
     comment: PropTypes.object.isRequired,
+    deleteComment: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
 };
+
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps, {  })(CommentItem);
+export default connect(mapStateToProps, { deleteComment })(CommentItem);
