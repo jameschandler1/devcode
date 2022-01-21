@@ -9,6 +9,7 @@ const PostItem = ({
   auth,
   addLike,
   removeLike,
+  deletePost,
   post: { _id, name, text, avatar, user, likes, comments, date },
 }) => (
   <div className="post bg-white p-1 my-1">

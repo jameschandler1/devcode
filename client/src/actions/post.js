@@ -59,9 +59,9 @@ export const removeLike = (id) => async (dispatch) => {
 };
 
 // delete post
-export const deletePost = (id) => async (dispatch) => {
+export const deletePost = id => async dispatch => { 
   try {
-     await axios.put(`/api/posts/${id}`);
+     await axios.delete(`/api/posts/${id}`);
 
     dispatch({
       type: DELETE_POST,
@@ -71,10 +71,13 @@ export const deletePost = (id) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: POST_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status 
+
+    }
     });
   }
 };
+
 
 // add post
 export const addPost = formData => async (dispatch) => {
