@@ -1,9 +1,9 @@
 /* Global Styles */
 :root {
-  --primary-color: #39b6aa;
-  --dark-color: #333437;
-  --light-color: #6f9696;
-  --danger-color: #d53a4a;
+  --primary-color: #ddd8d2;
+  --dark-color: #cf414f;
+  --light-color: #afa29d;
+  --danger-color: #c45562;
   --success-color: #3eae58;
 }
 
@@ -18,8 +18,8 @@ body {
   font-family: 'Raleway', sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  background-color: rgb(62, 63, 66);
-  color: rgb(218, 217, 217);
+  background-color: rgb(156, 159, 167);
+  color: rgb(238, 230, 230);
 }
 
 a {
@@ -576,3 +576,4 @@ button {
     padding: 0.3rem 0.4rem;
   }
 }
+

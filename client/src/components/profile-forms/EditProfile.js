@@ -145,7 +145,7 @@ const EditProfile = ({
             onChange={(e) => onChange(e)}
           />
           <small className="form-text">
-            Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)
+            Please use comma separated values (eg. Rock Climbing, Dancing, ...)
           </small>
         </div>
         <div className="form-group">
